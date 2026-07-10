@@ -1,5 +1,5 @@
 
-
+//The clock code//
 let hrs = document.getElementById('hrs');
 let min = document.getElementById('min');
 let sec = document.getElementById('sec');
@@ -19,6 +19,8 @@ setInterval(()=>{
 
 },1000)
 
+//battery status code//
+
 const BatteryLevel = document.getElementById('battery') ;
 navigator.getBattery().then(function(battery){
   function updateBattery () {
@@ -27,6 +29,8 @@ navigator.getBattery().then(function(battery){
   updateBattery();
   battery.addEventListener('levelchange',updateBattery);
 });
+
+// Online offline code//
 
 const NetStatus = document.getElementById('net-status');
 
@@ -39,18 +43,7 @@ window.addEventListener('online', updateNetworkStatus);
 window.addEventListener('offline', updateNetworkStatus);
 
 
-
-
-
-const term = $('#terminal').terminal({
-  hello: function (what) {
-    this.echo('Hello, ' + what + '. Wellcome to this terminal.');
-  }
-}, {
-  greetings: 'My First Web Terminal'
-});
-
-
+//weather code//
 
 navigator.geolocation.getCurrentPosition(
   (position) => {
@@ -61,6 +54,7 @@ navigator.geolocation.getCurrentPosition(
   () => {
     getWeather(22.6602, 89.7895); // fallback if location denied
   }
+  
 );
 
 async function getWeather(lat, lon) {
@@ -82,11 +76,14 @@ async function getWeather(lat, lon) {
   document.getElementById('weathertemp').textContent = temperature + '°C';
   document.getElementById('weatherhumid').textContent = humidity + '%';
   document.getElementById('weatherrain').textContent =  rainChance + '%';
+  document.getElementById('weatherlat').textContent = lat;
+  document.getElementById('weatherlong').textContent = lon;
 
 }
 
+//todo code//
+
 const input = document.getElementById("taskInput");
-const button = document.getElementById("addTask");
 const list = document.getElementById("taskList");
 
 function addTask() {
@@ -102,11 +99,70 @@ function addTask() {
     input.value = "";
 }
 
-button.addEventListener("click", addTask);
-
 input.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
         addTask();
     }
 });
 
+const API_KEY = import.meta.env.VITE_NASA_API_KEY;
+
+async function getAsteroid() {
+    try {
+        const response = await fetch(
+            `https://api.nasa.gov/neo/rest/v1/feed?api_key=${API_KEY}`
+        );
+
+        const data = await response.json();
+
+        const today = new Date().toISOString().split("T")[0];
+
+        const asteroids = data.near_earth_objects[today];
+
+        let closest = asteroids[0];
+
+        for (const asteroid of asteroids) {
+
+            const distance = Number(
+                asteroid.close_approach_data[0]
+                .miss_distance.kilometers
+            );
+
+            const closestDistance = Number(
+                closest.close_approach_data[0]
+                .miss_distance.kilometers
+            );
+
+            if (distance < closestDistance) {
+                closest = asteroid;
+            }
+        }
+
+        console.log(closest);
+
+        displayAsteroid(closest);
+
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+
+function displayAsteroid(asteroid) {
+
+    document.getElementById("astroidname").textContent = asteroid.name;
+
+    document.getElementById("astroiddistance").textContent = Math.round(asteroid.close_approach_data[0].miss_distance.kilometers).toLocaleString() + " km";
+
+    document.getElementById("astroidspeed").textContent = Math.round(asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour).toLocaleString() + " km/h";
+
+
+    document.getElementById("astroidsize").textContent = Math.round(asteroid.estimated_diameter.meters.estimated_diameter_max) + " m";
+
+
+    document.getElementById("astroidhazard").textContent = asteroid.is_potentially_hazardous_asteroid? "Risk⚠️": "None";
+}
+
+
+getAsteroid();
+ 

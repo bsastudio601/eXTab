@@ -80,13 +80,22 @@
         <div class="filefolder">
           <h2 class ="todo">To Do</h2>
 
-              <input class="input" type="text" id="taskInput" placeholder="Enter a task...">
+              <input type="text" id="taskInput" placeholder="Enter a task...">
               
 
               <div id="taskList"></div>
 
         </div>
-        <div class="updates">hi</div>
+        <div class="updates">
+          <div class="astroid-class" id="astroid-widget">
+            <h1>Astroid Warning</h1>
+            <div class="astroid">Name: </div> <span class="assdata" id="astroidname"></span>
+            <div class="astroid">Distance: </div> <span class="assdata" id="astroiddistance"></span>
+            <div class="astroid">Speed: </div> <span class="assdata" id="astroidspeed"></span>
+            <div class="astroid">Size: </div> <span class="assdata" id="astroidsize"></span>
+            <div class="astroid">Hazard: </div> <span class="assdata" id="astroidhazard"></span>
+          </div>  
+        </div>
         <div class="performence">
           
           <div class="clock">
@@ -102,10 +111,12 @@
           <div class="userstatus">User Status: <span id="net-status"></span></div>
           <div class = "battery-div">Battery Status: <span id = battery></span></div>
           <div class="weather" id="weather-widget">
-            <h1>Current Weather</h1>
-            <div class="weathername">Temperature : </div> <span id="weathertemp"></span>
-            <div class="weathername">Humidity : </div> <span id="weatherhumid"></span>
-            <div class="weathername">Chance of rain today : </div> <span id="weatherrain"></span>
+            <h3>Current Weather</h3>
+            <div class="weathername">Temperature: </div> <span class="weatherdata" id="weathertemp"></span>
+            <div class="weathername">Humidity: </div> <span class="weatherdata" id="weatherhumid"></span>
+            <div class="weathername">Chance of rain today: </div> <span class="weatherdata" id="weatherrain"></span>
+            <div class="weathername">Current Latitude: </div> <span class="weatherdata" id="weatherlat"></span>
+            <div class="weathername">Current longitude: </div> <span class="weatherdata" id="weatherlong"></span>
           </div>
 
           
