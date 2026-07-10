@@ -4,10 +4,115 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css"/>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
+    <script type="module" src="/src/main.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&family=Geo:ital@0;1&family=Monda:wght@400..700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+
     <title>exTab</title>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <div class="page">
+      <div class = "topbar">
+        <h2>exTab</h2>
+
+      </div>
+      <div class="container">
+        <div id="terminal" class="terminal"></div>
+        <div class="keyboard">
+          <div class="keys">
+            <div class="row">
+                  <button class="btn">1</button>
+                  <button class="btn">2</button>
+                  <button class="btn">3</button>
+                  <button class="btn">4</button>
+                  <button class="btn">5</button>
+                  <button class="btn">6</button>
+                  <button class="btn">7</button>
+                  <button class="btn">8</button>
+                  <button class="btn">9</button>
+                  <button class="btn">0</button>
+                  <button class="delete">Delete</button>
+              </div>
+              <div class="row">
+                  <button class="btn">q</button>
+                  <button class="btn">w</button>
+                  <button class="btn">e</button>
+                  <button class="btn">r</button>
+                  <button class="btn">t</button>
+                  <button class="btn">y</button>
+                  <button class="btn">u</button>
+                  <button class="btn">i</button>
+                  <button class="btn">o</button>
+                  <button class="btn">p</button>
+              </div>
+              <div class="row">
+                  <button class="btn">a</button>
+                  <button class="btn">s</button>
+                  <button class="btn">d</button>
+                  <button class="btn">f</button>
+                  <button class="btn">g</button>
+                  <button class="btn">h</button>
+                  <button class="btn">j</button>
+                  <button class="btn">k</button>
+                  <button class="btn">l</button>
+              </div>
+              <div class="row">
+                  <button class="btn">z</button>
+                  <button class="btn">x</button>
+                  <button class="btn">c</button>
+                  <button class="btn">v</button>
+                  <button class="btn">b</button>
+                  <button class="btn">n</button>
+                  <button class="btn">m</button>
+                  <button class="shift">Shift</button>
+              </div>
+              <div class="row">
+                  <button class="space">Space</button>
+              </div>
+          </div>
+        </div>
+        <div class="filefolder">
+          <h2 class ="todo">To Do</h2>
+
+              <input class="input" type="text" id="taskInput" placeholder="Enter a task...">
+              
+
+              <div id="taskList"></div>
+
+        </div>
+        <div class="updates">hi</div>
+        <div class="performence">
+          
+          <div class="clock">
+            <span id="hrs">00</span>
+            <span id="col">:</span>
+            <span id="min">00</span>
+            <span id="col">:</span>
+            <span id="sec">00</span>
+          </div>
+          <div class ="date">
+            <span id="daten"> </span>  <span id="month"></span>  <span id="year"></span>
+          </div>
+          <div class="userstatus">User Status: <span id="net-status"></span></div>
+          <div class = "battery-div">Battery Status: <span id = battery></span></div>
+          <div class="weather" id="weather-widget">
+            <h1>Current Weather</h1>
+            <div class="weathername">Temperature : </div> <span id="weathertemp"></span>
+            <div class="weathername">Humidity : </div> <span id="weatherhumid"></span>
+            <div class="weathername">Chance of rain today : </div> <span id="weatherrain"></span>
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+
+    
   </body>
 </html>
