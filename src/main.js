@@ -52,7 +52,7 @@ navigator.geolocation.getCurrentPosition(
     getWeather(lat, lon);
   },
   () => {
-    getWeather(22.6602, 89.7895); // fallback if location denied
+    getWeather(0,0);
   }
   
 );
@@ -104,6 +104,8 @@ input.addEventListener("keydown", (event) => {
         addTask();
     }
 });
+
+//astroid code//
 
 const API_KEY = import.meta.env.VITE_NASA_API_KEY;
 
@@ -166,3 +168,158 @@ function displayAsteroid(asteroid) {
 
 getAsteroid();
  
+//command line//
+
+const term = $('#theterminal').terminal({
+    hello: function(what) {
+        this.echo('Hello, ' + what +
+                  '. Wellcome to this terminal.');
+    },
+    help: function(){
+        this.echo("available commands")
+        this.echo("hello <name> -----shows your name")
+        this.echo("clear -----clears the terminal")
+        this.echo("about -----tells about eXTab")
+        this.echo("gl -----opens google")
+        this.echo("yt -----opens youtube")
+        this.echo("-gl <search Item> -----search results in google")
+        this.echo("-yt <search Item> -----search results in youtube")
+    },
+    about: function(){
+        this.echo("eXTab is a new tab page made by @arthihalder")
+        this.echo("eXTab is inspired by eDex-UI")
+    },
+    clear: function (){
+        this.clear()
+    },
+    gl: function () {
+        window.open("https://www.google.com", "_blank");
+    },
+    yt: function () {
+        window.open("https://www.youtube.com", "_blank");
+    },
+    "-gl": function(...query) {
+        const search = encodeURIComponent(query.join(" "));
+        window.open(`https://www.google.com/search?q=${search}`, "_blank");
+    },
+    
+    "-yt": function(...query) {
+        const search = encodeURIComponent(query.join(" "));
+        window.open(`https://www.youtube.com/results?search_query=${search}`, "_blank");
+    }
+
+}, {
+    greetings: 'My First Web Terminal',
+    checkArity: false
+});
+
+// ============================================
+// 1. TERMINAL SETUP
+// ============================================
+
+
+
+// ============================================
+// 2. VIRTUAL (CLICK-TO-TYPE) KEYBOARD
+// ============================================
+$(function () {
+  var $write = $('#theterminal'),
+      shift = false,
+      capslock = false;
+
+  $('#keyboard li').click(function () {
+    var $this = $(this),
+        character = $this.html();
+
+    // Shift keys
+    if ($this.hasClass('left-shift') || $this.hasClass('right-shift')) {
+      $('.letter').toggleClass('uppercase');
+      $('.symbol span').toggle();
+
+      shift = (shift === true) ? false : true;
+      capslock = false;
+      return false;
+    }
+
+    // Caps lock
+    if ($this.hasClass('capslock')) {
+      $('.letter').toggleClass('uppercase');
+      capslock = true;
+      return false;
+    }
+
+    // Delete
+    if ($this.hasClass('delete')) {
+      const current = term.get_command();
+      term.set_command(current.slice(0, -1));
+      term.focus();
+      return false;
+    }
+
+    // Special characters
+    if ($this.hasClass('symbol')) character = $('span:visible', $this).html();
+    if ($this.hasClass('space')) character = ' ';
+    if ($this.hasClass('tab')) character = "\t";
+    if ($this.hasClass('return')) {
+      term.exec(term.get_command());
+      term.set_command("");
+      term.focus();
+      return false;
+    }
+
+    // Uppercase letter
+    if ($this.hasClass('uppercase')) character = character.toUpperCase();
+
+    // Remove shift once a key is clicked.
+    if (shift === true) {
+      $('.symbol span').toggle();
+      if (capslock === false) $('.letter').toggleClass('uppercase');
+
+      shift = false;
+    }
+
+    // Add the character
+    const current = term.get_command();
+    term.set_command(current + character);
+  });
+
+
+  // ============================================
+  // 3. PHYSICAL KEYBOARD SYNC (light up matching key)
+  // ============================================
+
+  // build a lookup: normalized key name -> array of matching <li> elements
+  var keyMap = {};
+  $('#keyboard li').each(function () {
+    var $li = $(this);
+    var key;
+
+    if ($li.hasClass('space')) key = ' ';
+    else if ($li.hasClass('tab')) key = 'tab';
+    else if ($li.hasClass('return')) key = 'enter';
+    else if ($li.hasClass('delete')) key = 'backspace';
+    else if ($li.hasClass('left-shift') || $li.hasClass('right-shift')) key = 'shift';
+    else if ($li.hasClass('capslock')) key = 'capslock';
+    else key = $li.text().trim().toLowerCase(); // plain letter/number keys
+
+    if (!keyMap[key]) keyMap[key] = [];
+    keyMap[key].push($li);
+  });
+
+  $(document).on('keydown', function (e) {
+    var key = e.key.toLowerCase();
+    if (keyMap[key]) {
+      keyMap[key].forEach(function ($li) { $li.addClass('active'); });
+    }
+  });
+
+  $(document).on('keyup', function (e) {
+    var key = e.key.toLowerCase();
+    if (keyMap[key]) {
+      keyMap[key].forEach(function ($li) { $li.removeClass('active'); });
+    }
+  });
+});
+
+
+
