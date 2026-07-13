@@ -88,23 +88,51 @@ const input = document.getElementById("taskInput");
 const list = document.getElementById("taskList");
 
 function addTask() {
-    if (input.value.trim() === "") return;
+  if (input.value === '') {
+    alert("you must write something!");
+  } else {
+    let task = document.createElement('task');
 
-    const task = document.createElement("label");
-    task.innerHTML = `
-        <input type="checkbox">
-        <span>${input.value}</span>
-    `;
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    task.appendChild(checkbox);
+
+    let textNode = document.createTextNode(input.value);
+    task.appendChild(textNode);
+
+    let span = document.createElement("span");
+    span.innerHTML = "\u00d7";
+    task.appendChild(span);
 
     list.appendChild(task);
-    input.value = "";
+  }
+  input.value = "";
+  saveData();
 }
 
-input.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        addTask();
-    }
+list.addEventListener("click", function (e) {
+  if (e.target.tagName === "TASK") {
+    e.target.classList.toggle("checked");
+  }
+  else if (e.target.tagName === "SPAN") {
+    e.target.parentElement.remove();
+  }
+}, false);
+
+function saveData() {
+  localStorage.setItem("data", list.innerHTML);
+}
+function showTask() {
+  list.innerHTML = localStorage.getItem("data");
+}
+input.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    addTask();
+  }
 });
+showTask();
+
+
 
 //astroid code//
 

@@ -136,12 +136,13 @@ h1{
 .todo{
   color:white;
   align-items: top;
-  font-family: Silkscreen;
+  font-family: Silkscreen ;
   font-size: 18px;
   font-weight: 400;
   margin-bottom: 5px;
 }
 #taskInput{
+  display: flex;
   width: 100%;
   height: 12%;
   background-color: #000000;
@@ -152,17 +153,41 @@ h1{
 
 input[type="checkbox"] {
     accent-color: #000000;
+    order: 1;
     
 }
 
-#taskList{
-  align-items: center;
+
+
+#taskList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
   color: white;
-  font-family: Monda;
-  font-size:14px;
-  font-weight:200;
   font-family: Silkscreen;
+  font-size: 14px;
+  font-weight: 200;
 }
+
+task {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border: 1px solid white;
+  white-space: nowrap; 
+}
+
+task span:last-child {
+  cursor: pointer;
+  order:-1;
+}
+
+task span:last-child:hover {
+  color: red;
+}
+
 
 
 
@@ -311,6 +336,7 @@ align-self: center;
         filter: brightness(1);
     }
 }
+
 
 
 
