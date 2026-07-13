@@ -214,9 +214,9 @@ const term = $('#theterminal').terminal({
         const search = encodeURIComponent(query.join(" "));
         window.open(`https://www.youtube.com/results?search_query=${search}`, "_blank");
     },
-    "-gh": function(...query) {
+   "-gl": function(...query) {
         const search = encodeURIComponent(query.join(" "));
-        window.open(`https://www.github.com/results?search_query=${search}`, "_blank");
+        window.open(`https://www.google.com/search?q=${search}`, "_blank");
     },
     pcst: function() {
       this.echo(document.getElementById("battery").textContent);
