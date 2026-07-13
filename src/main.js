@@ -25,8 +25,9 @@ const BatteryLevel = document.getElementById('battery') ;
 navigator.getBattery().then(function(battery){
   function updateBattery () {
     BatteryLevel.textContent = battery.level *100 + "%";
+    battery.addEventListener('levelchange',updateBattery);
   }
-  updateBattery();
+  updateBattery ()
   battery.addEventListener('levelchange',updateBattery);
 });
 
@@ -110,61 +111,28 @@ input.addEventListener("keydown", (event) => {
 const API_KEY = import.meta.env.VITE_NASA_API_KEY;
 
 async function getAsteroid() {
-    try {
-        const response = await fetch(
-            `https://api.nasa.gov/neo/rest/v1/feed?api_key=${API_KEY}`
-        );
+    
+      const response = await fetch(
+          `https://api.nasa.gov/neo/rest/v1/feed?api_key=${API_KEY}`
+      );
 
-        const data = await response.json();
+      const data = await response.json();
 
-        const today = new Date().toISOString().split("T")[0];
+      const today = new Date().toISOString().split("T")[0];
+      const asteroid = data.near_earth_objects[today][0];
 
-        const asteroids = data.near_earth_objects[today];
+          document.getElementById("astroidname").textContent = asteroid.name;
 
-        let closest = asteroids[0];
+          document.getElementById("astroiddistance").textContent = Math.round(asteroid.close_approach_data[0].miss_distance.kilometers).toLocaleString() + " km";
 
-        for (const asteroid of asteroids) {
+          document.getElementById("astroidspeed").textContent = Math.round(asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour).toLocaleString() + " km/h";
 
-            const distance = Number(
-                asteroid.close_approach_data[0]
-                .miss_distance.kilometers
-            );
 
-            const closestDistance = Number(
-                closest.close_approach_data[0]
-                .miss_distance.kilometers
-            );
+          document.getElementById("astroidsize").textContent = Math.round(asteroid.estimated_diameter.meters.estimated_diameter_max) + " m";
 
-            if (distance < closestDistance) {
-                closest = asteroid;
-            }
-        }
 
-        console.log(closest);
-
-        displayAsteroid(closest);
-
-    } catch(error) {
-        console.log(error);
-    }
+          document.getElementById("astroidhazard").textContent = asteroid.is_potentially_hazardous_asteroid? "Risk⚠️": "None";
 }
-
-
-function displayAsteroid(asteroid) {
-
-    document.getElementById("astroidname").textContent = asteroid.name;
-
-    document.getElementById("astroiddistance").textContent = Math.round(asteroid.close_approach_data[0].miss_distance.kilometers).toLocaleString() + " km";
-
-    document.getElementById("astroidspeed").textContent = Math.round(asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour).toLocaleString() + " km/h";
-
-
-    document.getElementById("astroidsize").textContent = Math.round(asteroid.estimated_diameter.meters.estimated_diameter_max) + " m";
-
-
-    document.getElementById("astroidhazard").textContent = asteroid.is_potentially_hazardous_asteroid? "Risk⚠️": "None";
-}
-
 
 getAsteroid();
  
@@ -182,12 +150,19 @@ const term = $('#theterminal').terminal({
         this.echo("about -----tells about eXTab")
         this.echo("gl -----opens google")
         this.echo("yt -----opens youtube")
+        this.echo("gh -----opens github")
+        this.echo("cg -----opens chatGPT")
         this.echo("-gl <search Item> -----search results in google")
         this.echo("-yt <search Item> -----search results in youtube")
+        this.echo("pcst -----shows pc status")
+        this.echo("wrst -----shows weather data")
+
     },
     about: function(){
-        this.echo("eXTab is a new tab page made by @arthihalder")
         this.echo("eXTab is inspired by eDex-UI")
+        this.echo("eXTab is a new tab page made by @arthihalder")
+        this.echo("https://bsastudio601.github.io/portfolio/")
+        
     },
     clear: function (){
         this.clear()
@@ -197,98 +172,106 @@ const term = $('#theterminal').terminal({
     },
     yt: function () {
         window.open("https://www.youtube.com", "_blank");
-    },
-    "-gl": function(...query) {
-        const search = encodeURIComponent(query.join(" "));
-        window.open(`https://www.google.com/search?q=${search}`, "_blank");
-    },
     
+    },
+    gh: function () {
+        window.open("https://www.github.com", "_blank");
+    
+    },
+    cg: function () {
+        window.open("https://chatgpt.com", "_blank");
+    
+    },
     "-yt": function(...query) {
         const search = encodeURIComponent(query.join(" "));
         window.open(`https://www.youtube.com/results?search_query=${search}`, "_blank");
+    },
+    "-gh": function(...query) {
+        const search = encodeURIComponent(query.join(" "));
+        window.open(`https://www.github.com/results?search_query=${search}`, "_blank");
+    },
+    pcst: function() {
+      this.echo(document.getElementById("battery").textContent);
+      this.echo(document.getElementById('net-status').textContent);
+    },
+    wrst: function() {
+      this.echo(document.getElementById('weathertemp').textContent);
+      this.echo(document.getElementById('weatherhumid').textContent);
+      this.echo(document.getElementById('weatherrain').textContent);
+      this.echo(document.getElementById('weatherlat').textContent);
+      this.echo(document.getElementById('weatherlong').textContent);
     }
 
+
 }, {
-    greetings: 'My First Web Terminal',
+    greetings: greetings.innerHTML + 'Type help to get started!' ,
     checkArity: false
 });
 
-// ============================================
-// 1. TERMINAL SETUP
-// ============================================
 
+//key board code//
 
-
-// ============================================
-// 2. VIRTUAL (CLICK-TO-TYPE) KEYBOARD
-// ============================================
 $(function () {
   var $write = $('#theterminal'),
       shift = false,
       capslock = false;
 
-  $('#keyboard li').click(function () {
-    var $this = $(this),
-        character = $this.html();
+$(function(){
+	var $write = $('#theterminal'),
+		shift = false,
+		capslock = false;
+	
+	$('#keyboard li').click(function(){
+		var $this = $(this),
+			character = $this.html(); // If it's a lowercase letter, nothing happens to this variable
+		
+		// Shift keys
+		if ($this.hasClass('left-shift') || $this.hasClass('right-shift')) {
+			$('.letter').toggleClass('uppercase');
+			$('.symbol span').toggle();
+			
+			shift = (shift === true) ? false : true;
+			capslock = false;
+			return false;
+		}
+		
+		// Caps lock
+		if ($this.hasClass('capslock')) {
+			$('.letter').toggleClass('uppercase');
+			capslock = true;
+			return false;
+		}
+		
+		// Delete
+		if ($this.hasClass('delete')) {
+			var html = $write.html();
+			
+			$write.html(html.substr(0, html.length - 1));
+			return false;
+		}
+		
+		// Special characters
+		if ($this.hasClass('symbol')) character = $('span:visible', $this).html();
+		if ($this.hasClass('space')) character = ' ';
+		if ($this.hasClass('tab')) character = "\t";
+		if ($this.hasClass('return')) character = "\n";
+		
+		// Uppercase letter
+		if ($this.hasClass('uppercase')) character = character.toUpperCase();
+		
+		// Remove shift once a key is clicked.
+		if (shift === true) {
+			$('.symbol span').toggle();
+			if (capslock === false) $('.letter').toggleClass('uppercase');
+			
+			shift = false;
+		}
+		
+		// Add the character
+		$write.html($write.html() + character);
+	});
+});
 
-    // Shift keys
-    if ($this.hasClass('left-shift') || $this.hasClass('right-shift')) {
-      $('.letter').toggleClass('uppercase');
-      $('.symbol span').toggle();
-
-      shift = (shift === true) ? false : true;
-      capslock = false;
-      return false;
-    }
-
-    // Caps lock
-    if ($this.hasClass('capslock')) {
-      $('.letter').toggleClass('uppercase');
-      capslock = true;
-      return false;
-    }
-
-    // Delete
-    if ($this.hasClass('delete')) {
-      const current = term.get_command();
-      term.set_command(current.slice(0, -1));
-      term.focus();
-      return false;
-    }
-
-    // Special characters
-    if ($this.hasClass('symbol')) character = $('span:visible', $this).html();
-    if ($this.hasClass('space')) character = ' ';
-    if ($this.hasClass('tab')) character = "\t";
-    if ($this.hasClass('return')) {
-      term.exec(term.get_command());
-      term.set_command("");
-      term.focus();
-      return false;
-    }
-
-    // Uppercase letter
-    if ($this.hasClass('uppercase')) character = character.toUpperCase();
-
-    // Remove shift once a key is clicked.
-    if (shift === true) {
-      $('.symbol span').toggle();
-      if (capslock === false) $('.letter').toggleClass('uppercase');
-
-      shift = false;
-    }
-
-    // Add the character
-    const current = term.get_command();
-    term.set_command(current + character);
-  });
-
-
-  // ============================================
-  // 3. PHYSICAL KEYBOARD SYNC (light up matching key)
-  // ============================================
-
-  // build a lookup: normalized key name -> array of matching <li> elements
   var keyMap = {};
   $('#keyboard li').each(function () {
     var $li = $(this);

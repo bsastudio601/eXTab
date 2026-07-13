@@ -2,14 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type ="image/jpg" href = "src/assets/pfp.jpg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/style.css">
-    <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
     <script type="module" src="/src/main.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +16,16 @@
     <title>exTab</title>
   </head>
   <body>
+
+    <template id="greetings">
+          ____  ______________     ___.    
+    ____ \   \/  /\__    ___/____ \_ |__  
+  _/ __ \ \     /   |    |  \__  \ | __ \ 
+  \  ___/ /     \   |    |   / __ \| \_\ \
+  \___  >___/\  \  |____|  (____  /___  /
+      \/      \_/               \/    \/ 
+  </template>
+
     <div class="page">
       <div class="container">
         <div id="terminal" class="terminal">
@@ -26,20 +33,8 @@
         </div>
         <div class="keyboard-container">
             <ul id="keyboard">
-              <li class="symbol"><span class="off">`</span><span class="on">~</span></li>
-              <li class="symbol"><span class="off">1</span><span class="on">!</span></li>
-              <li class="symbol"><span class="off">2</span><span class="on">@</span></li>
-              <li class="symbol"><span class="off">3</span><span class="on">#</span></li>
-              <li class="symbol"><span class="off">4</span><span class="on">$</span></li>
-              <li class="symbol"><span class="off">5</span><span class="on">%</span></li>
-              <li class="symbol"><span class="off">6</span><span class="on">^</span></li>
-              <li class="symbol"><span class="off">7</span><span class="on">&amp;</span></li>
-              <li class="symbol"><span class="off">8</span><span class="on">*</span></li>
-              <li class="symbol"><span class="off">9</span><span class="on">(</span></li>
-              <li class="symbol"><span class="off">0</span><span class="on">)</span></li>
-              <li class="symbol"><span class="off">-</span><span class="on">_</span></li>
-              <li class="symbol"><span class="off">=</span><span class="on">+</span></li>
-              <li class="delete lastitem">delete</li>
+
+            
               <li class="tab">tab</li>
               <li class="letter">q</li>
               <li class="letter">w</li>
@@ -51,9 +46,7 @@
               <li class="letter">i</li>
               <li class="letter">o</li>
               <li class="letter">p</li>
-              <li class="symbol"><span class="off">[</span><span class="on">{</span></li>
-              <li class="symbol"><span class="off">]</span><span class="on">}</span></li>
-              <li class="symbol lastitem"><span class="off">\</span><span class="on">|</span></li>
+              <li class="delete lastitem">delete</li>
               <li class="capslock">caps lock</li>
               <li class="letter">a</li>
               <li class="letter">s</li>
@@ -64,9 +57,7 @@
               <li class="letter">j</li>
               <li class="letter">k</li>
               <li class="letter">l</li>
-              <li class="symbol"><span class="off">;</span><span class="on">:</span></li>
-              <li class="symbol"><span class="off">'</span><span class="on">&quot;</span></li>
-              <li class="return lastitem">return</li>
+              <li class="return">return</li>
               <li class="left-shift">shift</li>
               <li class="letter">z</li>
               <li class="letter">x</li>
@@ -74,12 +65,13 @@
               <li class="letter">v</li>
               <li class="letter">b</li>
               <li class="letter">n</li>
-              <li class="letter">m</li>
-              <li class="symbol"><span class="off">,</span><span class="on">&lt;</span></li>
-              <li class="symbol"><span class="off">.</span><span class="on">&gt;</span></li>
-              <li class="symbol"><span class="off">/</span><span class="on">?</span></li>
+              <li class="letter">m</li>/li>
+              
               <li class="right-shift lastitem">shift</li>
-              <li class="space lastitem">&nbsp;</li>
+              <li class="fool2"></li>
+              <li class="fool"></li>
+              <li class="space lastitem">Space</li>
+              <li class="fool"></li>
             </ul>
         </div>
         
@@ -117,7 +109,7 @@
           <div class="userstatus">User Status: <span id="net-status"></span></div>
           <div class = "battery-div">Battery Status: <span id = battery></span></div>
           <div class="weather" id="weather-widget">
-          
+            <h3>Current Weather</h3>
             <div class="weathername">Temperature: </div> <span class="weatherdata" id="weathertemp"></span>
             <div class="weathername">Humidity: </div> <span class="weatherdata" id="weatherhumid"></span>
             <div class="weathername">Chance of rain today: </div> <span class="weatherdata" id="weatherrain"></span>

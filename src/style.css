@@ -146,9 +146,11 @@ input[type="checkbox"] {
   align-items: center;
   color: white;
   font-family: Monda;
-  font-size:12px;
+  font-size:14px;
   font-weight:200;
+  font-family: Silkscreen;
 }
+
 
 
 .keyboard-container {
@@ -157,7 +159,9 @@ input[type="checkbox"] {
   grid-column: 3 / 5;
   background-color: #000000;
   border: solid 2px #ffffff;
-  padding: 5px;
+  padding: 10px;
+  justify-items: center;
+  align-items: center;
 }
 
 
@@ -167,16 +171,19 @@ input[type="checkbox"] {
 margin: 0;
 padding: 0;
 list-style: none;
+align-self: center;
 }
     #keyboard li {
     float: left;
     margin: 0 5px 5px 0;
-    width: 40px;
-    height: 40px;
+    width: 45px; 
+    height: 45px;
     line-height: 40px;
     text-align: center;
     background: #000000;
     color: white;
+    font-family: Bitcount Single ;
+    font-size: 18px;
     border: 1px solid #f9f9f9;
   
     }
@@ -184,19 +191,19 @@ list-style: none;
         clear: left;
         }
             #keyboard .tab, #keyboard .delete {
-            width: 70px;
+            width: 112px;
             }
             #keyboard .capslock {
-            width: 80px;
+            width: 90px;
             }
             #keyboard .return {
-            width: 77px;
+            width: 183px;
             }
             #keyboard .left-shift {
-            width: 95px;
+            width: 130px;
             }
             #keyboard .right-shift {
-            width: 109px;
+            width: 130px;
             }
         .lastitem {
         margin-right: 0;
@@ -205,8 +212,13 @@ list-style: none;
         text-transform: uppercase;
         }
         #keyboard .space {
-        clear: left;
-        width: 681px;
+        width: 415px;
+        }
+        #keyboard .fool{
+          width: 150px;
+        }
+        #keyboard .fool2{
+          width: 70px;
         }
         .on {
         display: none;
@@ -258,6 +270,8 @@ list-style: none;
       height: 100%;
       font-size: 15px;
     }
+
+
 
 
 
