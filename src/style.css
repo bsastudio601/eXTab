@@ -176,8 +176,8 @@ align-self: center;
     #keyboard li {
     float: left;
     margin: 0 5px 5px 0;
-    width: 45px; 
-    height: 45px;
+    width: 40px; 
+    height: 40px;
     line-height: 40px;
     text-align: center;
     background: #000000;
@@ -191,19 +191,19 @@ align-self: center;
         clear: left;
         }
             #keyboard .tab, #keyboard .delete {
-            width: 112px;
+            width: 95px;
             }
             #keyboard .capslock {
             width: 90px;
             }
             #keyboard .return {
-            width: 183px;
+            width: 144px;
             }
             #keyboard .left-shift {
-            width: 130px;
+            width: 120px;
             }
             #keyboard .right-shift {
-            width: 130px;
+            width: 120px;
             }
         .lastitem {
         margin-right: 0;
@@ -212,13 +212,13 @@ align-self: center;
         text-transform: uppercase;
         }
         #keyboard .space {
-        width: 415px;
+        width: 340px;
         }
         #keyboard .fool{
           width: 150px;
         }
         #keyboard .fool2{
-          width: 70px;
+          width: 45px;
         }
         .on {
         display: none;
